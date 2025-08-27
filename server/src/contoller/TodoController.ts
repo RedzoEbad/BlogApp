@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import UserModel from '../model/TodoModel';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import BlogModel from '../model/BlogModel';
 
 const loginController = async (req: Request, res: Response) => {
   try {
@@ -117,4 +118,34 @@ const registerController = async (req: Request, res: Response) => {
   });
 };
 
-export { loginController, registerController ,  adminDataController, userDataController };
+const BlogController = async (req: Request, res: Response) => {
+  try {
+    const { title, description, image } = req.body;
+
+    if (!title || !description) {
+      return res.status(400).json({ message: "Title and description are required" });
+    }
+
+    // If you're using auth middleware and attaching user to req
+    const userId = (req as any).user?.userId || null;
+
+    const newBlog = new BlogModel({
+      title,
+      description,
+      image,
+      createdBy: userId
+    });
+
+    await newBlog.save();
+
+    return res.status(201).json({
+      message: "Blog created successfully",
+      blog: newBlog
+    });
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export { loginController, registerController ,  adminDataController, userDataController  , BlogController};
