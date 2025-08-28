@@ -9,10 +9,18 @@ const router = express.Router();
 // Public routes
 router.post('/register', registerController);
 router.post('/login', loginController);
-router.get("/blog", async (req, res) => {
+router.get("/blog", auth() , async (req, res) => {
   try {
     const blogs = await BlogModel.find().sort({ createdAt: -1 });
-    res.json({ blogs });
+     const blogsWithEmail = blogs.map((blog) => ({
+      ...blog.toObject(),
+      email: req.user?.email,
+    }));
+
+    res.json({
+      blogs: blogsWithEmail,
+      message: "Blogs fetched successfully",
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

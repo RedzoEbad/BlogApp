@@ -121,18 +121,18 @@ const registerController = async (req: Request, res: Response) => {
 const BlogController = async (req: Request, res: Response) => {
   try {
     const { title, description, image } = req.body;
-
     if (!title || !description) {
       return res.status(400).json({ message: "Title and description are required" });
     }
 
     // If you're using auth middleware and attaching user to req
     const userId = (req as any).user?.userId || null;
-
+const email = (req as any).user?.email || null;
     const newBlog = new BlogModel({
       title,
       description,
       image,
+      email,
       createdBy: userId
     });
 
