@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginController, registerController, adminDataController, userDataController , BlogController } from '../contoller/TodoController';
+import { loginController, registerController, adminDataController, userDataController , BlogController  , deleteDataController} from '../contoller/TodoController';
 import { auth } from '../middleware/TodoMiddleware';
 import { format } from 'path';
 import BlogModel from '../model/BlogModel';
@@ -28,7 +28,7 @@ router.get("/blog", auth() , async (req, res) => {
 // Protected routes
 router.get('/admin', auth('admin'), adminDataController); 
 router.get('/user', auth('user'), userDataController);   
-// router.post('/bl og', BlogController);
+router.delete('/blog/:id', auth('user'), deleteDataController);
 router.post('/blog',auth("user") ,  BlogController);
 
 export default router;
