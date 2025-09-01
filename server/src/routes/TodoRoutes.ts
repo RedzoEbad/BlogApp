@@ -12,13 +12,8 @@ router.post('/login', loginController);
 router.get("/blog", auth() , async (req, res) => {
   try {
     const blogs = await BlogModel.find().sort({ createdAt: -1 });
-     const blogsWithEmail = blogs.map((blog) => ({
-      ...blog.toObject(),
-      email: req.user?.email,
-    }));
-
     res.json({
-      blogs: blogsWithEmail,
+      blogs,
       message: "Blogs fetched successfully",
     });
   } catch (err) {

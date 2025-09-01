@@ -4,6 +4,7 @@ export interface IBlog extends Document {
   title: string;
   description: string;
   image?: string;
+  email? : string;
   createdBy: mongoose.Types.ObjectId; 
   createdAt: Date;
 }
@@ -13,6 +14,7 @@ const blogSchema = new Schema<IBlog>(
     title: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String },
+    email : { type: String },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
   },
   { timestamps: true }

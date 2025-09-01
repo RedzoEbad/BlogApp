@@ -187,24 +187,7 @@ const stripHtml = (html: string) => {
           <p className="text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto animate-fade-in-delay font-light">
             ✨ Where Stories Come Alive & Dreams Take Flight ✨
           </p>
-          <div className="mt-8 flex justify-center space-x-8 text-white/80">
-            <div className="text-center">
-              <p className="text-3xl font-bold">{blogs.length}</p>
-              <p className="text-sm">Stories</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold">
-                {Object.values(blogStats).reduce((acc, s) => acc + s.views, 0)}
-              </p>
-              <p className="text-sm">Views</p>
-            </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold">
-                {Object.values(blogStats).reduce((acc, s) => acc + s.likes, 0)}
-              </p>
-              <p className="text-sm">Hearts</p>
-            </div>
-          </div>
+          
         </div>
       </div>
 

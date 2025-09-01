@@ -189,22 +189,22 @@ const deleteDataController = async (req: Request, res: Response) => {
     });
 
     // Check ownership (user can delete own blogs, admin can delete any)
-    // const isOwner = (blog as any).email === userEmail;
+    const isOwner = (blog as any).email === userEmail;
     // const isAdmin = userRole === 'admin';
-    // const canDelete = isOwner || isAdmin;
+    const canDelete = isOwner ;
     
-    // if (!canDelete) {
-    //   return res.status(403).json({ 
-    //     message: "You can only delete your own blogs",
-    //     debug: {
-    //       userEmail,
-    //       blogEmail: (blog as any).email,
-    //       userRole,
-    //       isOwner,
-    //       isAdmin
-    //     }
-    //   });
-    // }
+    if (!canDelete) {
+      return res.status(403).json({ 
+        message: "You can only delete your own blogs",
+        debug: {
+          userEmail,
+          blogEmail: (blog as any).email,
+          userRole,
+          isOwner,
+      
+        }
+      });
+    }
 
     // Delete the blog
     const deletedBlog = await BlogModel.findByIdAndDelete(id);
