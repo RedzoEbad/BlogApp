@@ -325,7 +325,70 @@ const updateBlogController = async (req: Request, res: Response) => {
   }
 };
 
+const EditblogController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { title, description, image } = req.body;
+   const userId = (req as any).user?.userId;
+   console.log("Edit request by userId:", userId, "for blogId:", id);
+
+if (!userId) {
+  return res.status(401).json({ message: "User authentication required" });
+}
+
+    // Validate input
+    if (!title || !description) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Title and description are required" 
+      });
+    }
+
+    // Find the blog and check ownership
+    const blog = await BlogModel.findById(id);
+    if (!blog) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Blog not found" 
+      });
+    }
+
+    // Check if the user owns this blog
+   if (blog.createdBy.toString() !== userId) {
+  return res.status(403).json({ 
+    success: false, 
+    message: "You can only edit your own blogs" 
+  });
+}
+
+    // Update the blog
+    const updatedBlog = await BlogModel.findByIdAndUpdate(
+      id,
+      { 
+        title, 
+        description, 
+        image: image || blog.image // Keep existing image if not provided
+      },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Blog updated successfully",
+      blog: updatedBlog
+    });
+
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
+
 export {
+  EditblogController,
   loginController,
   registerController,
   adminDataController,
