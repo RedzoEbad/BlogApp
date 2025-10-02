@@ -1,8 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs "NodeJS"  // from Jenkins tool config
+    environment {
+        PATH = "${tool 'NodeJS'}/bin:${env.PATH}"  // inject NodeJS into PATH
     }
 
     stages {
