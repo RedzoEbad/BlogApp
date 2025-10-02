@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="9.712">
+  <testsuite name="loginController" errors="0" failures="0" skipped="0" timestamp="2025-10-01T21:27:11" time="8.536" tests="5">
+    <testcase classname="loginController returns 400 if email or password missing" name="loginController returns 400 if email or password missing" time="0.016">
+    </testcase>
+    <testcase classname="loginController returns 401 if user not found" name="loginController returns 401 if user not found" time="0.006">
+    </testcase>
+    <testcase classname="loginController returns 401 if password invalid" name="loginController returns 401 if password invalid" time="0.002">
+    </testcase>
+    <testcase classname="loginController returns 200 and token on success" name="loginController returns 200 and token on success" time="0.009">
+    </testcase>
+    <testcase classname="loginController returns 500 on exception" name="loginController returns 500 on exception" time="0.218">
+    </testcase>
+  </testsuite>
+</testsuites>

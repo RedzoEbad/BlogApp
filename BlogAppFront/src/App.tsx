@@ -1,11 +1,10 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import UserDashboard from './components/UserDashboard';
 import Unauthorized from './components/Unauthorized';
-import Auth from './components/Regiter'; // ✅ fixed typo
+import Auth from './components/Regiter';
 import './App.css';
 
 function App() {

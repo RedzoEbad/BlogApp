@@ -50,8 +50,8 @@ const CreateBlog: React.FC<CreateBlogProps> = ({
   const [quillError, setQuillError] = useState(false);
 
   // API Configuration - You can modify these as needed
-  const API_BASE_URL = 'http://localhost:3000';
-  const API_ENDPOINT = `${API_BASE_URL}/api/v1/blog`;
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_ENDPOINT = `${API_BASE_URL}/blog`;
 
   // Load Quill.js dynamically
   useEffect(() => {

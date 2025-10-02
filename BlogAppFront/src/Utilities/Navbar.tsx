@@ -1,6 +1,6 @@
-import React , {useState}from "react";
+import {useState}from "react";
 import { motion } from "framer-motion";
-import { Search, PlusCircle, BookOpen } from "lucide-react";
+import { Search, PlusCircle} from "lucide-react";
 import CreateBlog from "../components/CreateBlog" // Adjust the import path as necessary
 
 const Navbar = () => {

@@ -42,6 +42,9 @@ const Auth: React.FC = () => {
     text: string;
   } | null>(null);
 
+  // Use env var or fallback
+const API_BASE = process.env.VITE_API_URL || "http://localhost:5000/api/v1";
+
   const handleChange = (
     form: "register" | "login",
     e: React.ChangeEvent<HTMLInputElement>
@@ -61,7 +64,7 @@ const Auth: React.FC = () => {
     setIsLoading(true);
     setMessage(null);
 
-    const url = `http://localhost:3000/api/v1/${form}`;
+    const url = `${API_BASE}/${form}`;
     const payload = form === "register" ? registerForm : loginForm;
 
     try {
@@ -93,8 +96,8 @@ const Auth: React.FC = () => {
             try {
               const url2 =
                 data.user.role === "admin"
-                  ? "http://localhost:3000/api/v1/admin"
-                  : "http://localhost:3000/api/v1/user";
+                  ? `${API_BASE}/admin`
+                  : `${API_BASE}/user`;
 
               const res2 = await fetch(url2, {
                 method: "GET",

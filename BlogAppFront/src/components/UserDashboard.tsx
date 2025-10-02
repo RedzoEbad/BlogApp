@@ -77,7 +77,7 @@ const UserDashboard: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:3000/api/v1/blog", {
+        const res = await fetch("http://localhost:5000/api/v1/blog", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -147,7 +147,7 @@ const UserDashboard: React.FC = () => {
     if (!confirm("Are you sure you want to delete this masterpiece?")) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:3000/api/v1/blog/${blogId}`, {
+      const res = await fetch(`http://localhost:5000/api/v1/blog/${blogId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

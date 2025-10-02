@@ -1,0 +1,31 @@
+  version: "3.8"
+
+  services:
+    backend:
+      build: ./server
+      ports:
+        - "5000:5000"
+      environment:
+        MONGO_URL: mongodb://database:27017/blogapp
+        JWT_SECRET: "thisissecreatkeymadebymebadkhan2002"
+      depends_on:
+        - database
+
+    frontend:
+      build: ./BlogAppFront
+      ports:
+        - "80:80"   # change to "5173:5173" if using vite dev server
+      environment:
+        - VITE_API_URL=http://backend:5000/api/v1
+      depends_on:
+        - backend
+
+    database:
+      image: mongo:6
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo-data:/data/db
+
+  volumes:
+    mongo-data:
