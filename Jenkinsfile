@@ -1,43 +1,56 @@
 pipeline {
     agent any
+
     tools {
-        nodejs "NodeJS"   
+        nodejs "NodeJS"  // from Jenkins tool config
     }
+
     stages {
-        stage('Install') {
+        stage('Install Frontend') {
             steps {
-                sh 'npm install --legacy-peer-deps'
+                dir('BlogAppFront') {
+                    sh 'npm install --legacy-peer-deps'
+                }
             }
         }
+
         stage('Test Frontend') {
             steps {
-                sh 'cd frontend && npm test -- --coverage'
+                dir('BlogAppFront') {
+                    sh 'npm test -- --watchAll=false --ci'
+                }
             }
         }
+
+        stage('Install Backend') {
+            steps {
+                dir('server') {
+                    sh 'npm install --legacy-peer-deps'
+                }
+            }
+        }
+
         stage('Test Backend') {
             steps {
-                sh 'cd backend && npm test -- --coverage'
+                dir('server') {
+                    sh 'npm test'
+                }
             }
         }
+
         stage('Publish Coverage') {
             steps {
-                publishHTML(target: [
-                    reportName: 'Coverage Report',
-                    reportDir: 'frontend/coverage/lcov-report',
-                    reportFiles: 'index.html'
-                ])
+                junit '**/junit.xml'
             }
         }
     }
+
     post {
-        always {
-            junit '**/junit.xml'
-        }
         failure {
-            echo '❌ Tests failed. Deployment halted.'
+            echo "❌ Tests failed. Deployment halted."
         }
         success {
-            echo '✅ All tests passed. Ready for deployment.'
+            echo "✅ All tests passed! Ready for deployment."
         }
     }
 }
