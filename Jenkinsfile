@@ -43,6 +43,16 @@ pipeline {
                 junit '**/junit.xml'
             }
         }
+
+        stage('Deploy with Docker') {
+            steps {
+                echo "🚀 Starting deployment using Docker Compose..."
+                sh '''
+                  docker compose -f docker-compose.yml down
+                  docker compose -f docker-compose.yml up -d --build
+                '''
+            }
+        }
     }
 
     post {
@@ -50,7 +60,7 @@ pipeline {
             echo "❌ Tests failed. Deployment halted."
         }
         success {
-            echo "✅ All tests passed! Ready for deployment."
+            echo "✅ All tests passed! Deployment complete."
         }
     }
 }
