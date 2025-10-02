@@ -147,26 +147,21 @@ const API_BASE = process.env.VITE_API_URL || "http://localhost:5000/api/v1";
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 w-full max-w-sm sm:max-w-md lg:max-w-lg border border-cyan-400/30"
         >
-          {/* Card Header */}
-          <div className="flex flex-col items-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center mb-2 shadow-lg">
-              <span className="text-white text-3xl">📝</span>
-            </div>
-            <div className="flex bg-slate-900/50 rounded-2xl p-1 w-full">
-              {["register", "login"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => switchTab(tab as "register" | "login")}
-                  className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
-                    activeTab === tab
-                      ? "bg-gradient-to-r from-blue-600 via-teal-500 to-cyan-500 text-white shadow-lg"
-                      : "text-gray-400 hover:text-white hover:bg-slate-700/50"
-                  }`}
-                >
-                  {tab === "register" ? "🚀 Register" : "🔐 Login"}
-                </button>
-              ))}
-            </div>
+          {/* Tabs */}
+          <div className="flex mb-6 bg-slate-900/50 rounded-2xl p-1">
+            {["register", "login"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => switchTab(tab as "register" | "login")}
+                className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
+                  activeTab === tab
+                    ? "bg-gradient-to-r from-blue-600 via-teal-500 to-cyan-500 text-white shadow-lg"
+                    : "text-gray-400 hover:text-white hover:bg-slate-700/50"
+                }`}
+              >
+                {tab === "register" ? "🚀 Register" : "🔐 Login"}
+              </button>
+            ))}
           </div>
 
           {/* Message */}
@@ -202,13 +197,8 @@ const API_BASE = process.env.VITE_API_URL || "http://localhost:5000/api/v1";
                 <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 text-cyan-300">
                   Create Your Account
                 </h2>
-                {['name', 'email', 'password'].map((field) => (
-                  <div key={field} className="relative flex items-center">
-                    <span className="absolute left-3 text-cyan-400 text-lg">
-                      {field === 'name' && '👤'}
-                      {field === 'email' && '📧'}
-                      {field === 'password' && '🔒'}
-                    </span>
+                {["name", "email", "password"].map((field) => (
+                  <div key={field} className="relative">
                     <input
                       type={
                         field === "password"
@@ -222,10 +212,10 @@ const API_BASE = process.env.VITE_API_URL || "http://localhost:5000/api/v1";
                       onChange={(e) => handleChange("register", e)}
                       disabled={isLoading}
                       required
-                      className="peer w-full pl-10 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-cyan-400/30 bg-slate-900/80 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-50 text-sm sm:text-base"
+                      className="peer w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-cyan-400/30 bg-slate-900/80 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-50 text-sm sm:text-base"
                       placeholder={field}
                     />
-                    <label className="absolute left-10 sm:left-12 -top-2 text-cyan-300 text-xs sm:text-sm bg-slate-900 px-1 sm:px-2 peer-placeholder-shown:top-2.5 sm:peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:-top-2 peer-focus:text-cyan-300 transition-all">
+                    <label className="absolute left-3 sm:left-4 -top-2 text-cyan-300 text-xs sm:text-sm bg-slate-900 px-1 sm:px-2 peer-placeholder-shown:top-2.5 sm:peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-400 peer-focus:-top-2 peer-focus:text-cyan-300 transition-all">
                       {field.charAt(0).toUpperCase() + field.slice(1)}
                     </label>
                   </div>
@@ -233,17 +223,9 @@ const API_BASE = process.env.VITE_API_URL || "http://localhost:5000/api/v1";
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-teal-500 text-white font-bold py-2 sm:py-3 rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transition-all disabled:opacity-50 text-base flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-blue-600 via-teal-500 to-cyan-500 text-white font-bold py-2 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 text-sm sm:text-base"
                 >
-                  {isLoading ? (
-                    <>
-                      <span className="animate-spin inline-block mr-2">⏳</span> Creating Account...
-                    </>
-                  ) : (
-                    <>
-                      <span>📝</span> Create Account
-                    </>
-                  )}
+                  {isLoading ? "Creating Account..." : "Create Account"}
                 </button>
               </motion.form>
             )}
